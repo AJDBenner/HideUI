@@ -30,7 +30,7 @@ function main(){
 	Menus.removeMenu(Menus.AppMenuBar.FIND_MENU);
 
 	//remove the view menu
-	Menus.removeMenu(Menus.AppMenuBar.VIEW_MENU);
+	//Menus.removeMenu(Menus.AppMenuBar.VIEW_MENU);
 
 	//remove the navigate menu
 	Menus.removeMenu(Menus.AppMenuBar.NAVIGATE_MENU);
