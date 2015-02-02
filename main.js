@@ -4,52 +4,89 @@
 define(function (require, exports, module) {
 "use strict";
 
-var CommandManager 	= brackets.getModule("command/CommandManager"),
-Menus          		= brackets.getModule("command/Menus"),
-AppInit        		= brackets.getModule("utils/AppInit"),
-//SidebarView    		= brackets.getModule("project/SidebarView"),
-Resizer        		= brackets.getModule("utils/Resizer");
+	var CommandManager 	= brackets.getModule("command/CommandManager"),
+	Menus          		= brackets.getModule("command/Menus"),
+	AppInit        		= brackets.getModule("utils/AppInit"),
+	Commands 			= brackets.getModule("command/Commands"),
+	Resizer        		= brackets.getModule("utils/Resizer");
 
-function main(){
-	//SidebarView.hide();
-	console.log("Check");
-	//console.log(Resizer.makeResizable("#sidebar"));
-	Resizer.hide("#sidebar");
-	Resizer.makeResizable("#main-toolbar");
-	Resizer.hide("#main-toolbar");
-	//console.log(Resizer.makeResizable("#titlebar"));
-	//console.log(Resizer.hide("#titlebar"));
-	
-	//remove the file menu
-	//Menus.removeMenu(Menus.AppMenuBar.FILE_MENU);
+	/**
+	 * By default this extension will remove top and side bars
+	 */
+	function init(){
+		hide();
+	}
 
-	//remove the edit menu
-	Menus.removeMenu(Menus.AppMenuBar.EDIT_MENU);
 
-	//remove the find menu
-	Menus.removeMenu(Menus.AppMenuBar.FIND_MENU);
+	/**
+	 * This function would show all UI elements that were hidden
+	 * Currently not implimented
+	 */
+	function show() {
 
-	//remove the view menu
-	//Menus.removeMenu(Menus.AppMenuBar.VIEW_MENU);
+	}
 
-	//remove the navigate menu
-	Menus.removeMenu(Menus.AppMenuBar.NAVIGATE_MENU);
+	/**
+	 * This function calls all the hide functions
+	 */
+	function hide() {
+		removeMainToolBar();
+		removeLeftSideToolBar();
+		removeRightSideToolBar();
+	}
 
-	//remove the help menu
-	Menus.removeMenu(Menus.AppMenuBar.HELP_MENU);
-	    
-}
+	/**
+	 * This function merely removes the left side tool bar
+	 */
+	function removeLeftSideToolBar() {
+		Resizer.hide("#sidebar");
+	}
 
-// First, register a command - a UI-less object associating an id to a handler
-var MY_COMMAND_ID = "RemoveUI"; // package-style naming to avoid collisions
-CommandManager.register("Remove UI", MY_COMMAND_ID, main);
+	/**
+	 * Used to remove the top tool bar
+	 */
+	function removeMainToolBar() {
+		//Run command for user to have a file to edit
+		CommandManager.execute(Commands.FILE_NEW_UNTITLED);
+		
+		//remove the file menu
+		Menus.removeMenu(Menus.AppMenuBar.FILE_MENU);
 
-// Then create a menu item bound to the command
-// The label of the menu item is the name we gave the command (see above)
-var menu = Menus.getMenu(Menus.AppMenuBar.FILE_MENU);
-menu.addMenuItem(MY_COMMAND_ID, "Ctrl-Alt-H");
+		//remove the edit menu
+		Menus.removeMenu(Menus.AppMenuBar.EDIT_MENU);
 
-AppInit.appReady(function(){
-	main();
-});
+		//remove the find menu
+		Menus.removeMenu(Menus.AppMenuBar.FIND_MENU);
+
+		//remove the view menu
+		Menus.removeMenu(Menus.AppMenuBar.VIEW_MENU);
+
+		//remove the navigate menu
+		Menus.removeMenu(Menus.AppMenuBar.NAVIGATE_MENU);
+
+		//remove the help menu
+		Menus.removeMenu(Menus.AppMenuBar.HELP_MENU);
+	}
+
+	/**
+	 * Used to remove the left side tool bar
+	 */
+	function removeRightSideToolBar() {
+		Resizer.makeResizable("#main-toolbar");
+		Resizer.hide("#main-toolbar");
+		var _edits = $('.main-toolbar').hide();
+	    _edits = $('.content').css("right","0");
+	}
+
+	AppInit.appReady(function(){
+		init();
+	});
+
+	// Define public API
+	exports.hide = hide;
+	exports.removeMainToolBar = removeMainToolBar;
+	exports.removeLeftSideToolBar = removeLeftSideToolBar;
+	exports.removeRightSideToolBar = removeRightSideToolBar;
+
+
 });
