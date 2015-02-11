@@ -46,9 +46,6 @@ define(function (require, exports, module) {
 	 * Used to remove the top tool bar
 	 */
 	function removeMainToolBar() {
-		//Run command for user to have a file to edit
-		//CommandManager.execute(Commands.FILE_NEW_UNTITLED);
-		
 		//remove the file menu
 		Menus.removeMenu(Menus.AppMenuBar.FILE_MENU);
 
