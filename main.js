@@ -2,12 +2,10 @@
 /*global define, brackets: true*/
 
 define(function (require, exports, module) {
-"use strict";
+	"use strict";
 
-	var CommandManager 	= brackets.getModule("command/CommandManager"),
-	Menus          		= brackets.getModule("command/Menus"),
+	var	Menus          	= brackets.getModule("command/Menus"),
 	AppInit        		= brackets.getModule("utils/AppInit"),
-	Commands 			= brackets.getModule("command/Commands"),
 	Resizer        		= brackets.getModule("utils/Resizer");
 
 	/**
@@ -15,15 +13,6 @@ define(function (require, exports, module) {
 	 */
 	function init(){
 		hide();
-	}
-
-
-	/**
-	 * This function would show all UI elements that were hidden
-	 * Currently not implimented
-	 */
-	function show() {
-
 	}
 
 	/**
@@ -72,7 +61,7 @@ define(function (require, exports, module) {
 		Resizer.makeResizable("#main-toolbar");
 		Resizer.hide("#main-toolbar");
 		var _edits = $('.main-toolbar').hide();
-	    _edits = $('.content').css("right","0");
+		_edits = $('.content').css("right","0");
 	}
 
 	AppInit.appReady(function(){
