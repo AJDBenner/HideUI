@@ -1,5 +1,5 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
-/*global define, brackets: true*/
+/*global define, brackets: true, $*/
 
 define(function (require, exports, module) {
 	"use strict";
@@ -22,6 +22,7 @@ define(function (require, exports, module) {
 		removeMainToolBar();
 		removeLeftSideToolBar();
 		removeRightSideToolBar();
+		removeTitleBar();
 	}
 
 	/**
@@ -29,6 +30,18 @@ define(function (require, exports, module) {
 	 */
 	function removeLeftSideToolBar() {
 		Resizer.hide("#sidebar");
+	}
+
+	/**
+	 * This function merely removes the title bar
+	 * and the header of the first pane
+	 */
+	function removeTitleBar() {
+		$("#titlebar").remove();
+		$("#first-pane .pane-header").remove();
+		//Alter the height of the affected elements
+		$("#editor-holder").css({"height" : "96%"});
+		$("#first-pane .pane-content, .cm-s-light-theme").css({"height": "100%"});
 	}
 
 	/**
@@ -55,13 +68,12 @@ define(function (require, exports, module) {
 	}
 
 	/**
-	 * Used to remove the left side tool bar
+	 * Used to remove the right side tool bar
 	 */
 	function removeRightSideToolBar() {
 		Resizer.makeResizable("#main-toolbar");
 		Resizer.hide("#main-toolbar");
-		var _edits = $('.main-toolbar').hide();
-		_edits = $('.content').css("right","0");
+		$(".content").css("right","0");
 	}
 
 	AppInit.appReady(function(){
