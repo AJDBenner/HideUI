@@ -8,11 +8,16 @@ define(function (require, exports, module) {
 	AppInit        		= brackets.getModule("utils/AppInit"),
 	Resizer        		= brackets.getModule("utils/Resizer");
 
+	var parentWindow = window.parent;
+
 	/**
 	 * By default this extension will remove top and side bars
 	 */
 	function init(){
 		hide();
+		parentWindow.postMessage(JSON.stringify({
+			type: "bramble:loaded"
+		}), "*");
 	}
 
 	/**
@@ -85,6 +90,4 @@ define(function (require, exports, module) {
 	exports.removeMainToolBar = removeMainToolBar;
 	exports.removeLeftSideToolBar = removeLeftSideToolBar;
 	exports.removeRightSideToolBar = removeRightSideToolBar;
-
-
 });
